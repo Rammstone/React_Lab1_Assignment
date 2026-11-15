@@ -20,11 +20,19 @@ export default function App() {
     setMatrix(incrementAt(matrix, row, col));
   }
 
+  useEffect(() => {
+    fetch("/matrix.json")
+      .then((response) => response.json())
+      .then((data) => setMatrix(data));
+  }, []);
+
   return (
     <main className="app">
       <Header />
-      <Matrix matrix={matrix} onIncrement={increment} />
-      <Stats matrix={matrix} />
+      <div className="app-content">
+        <Matrix matrix={matrix} onIncrement={increment} />
+        <Stats matrix={matrix} />
+      </div>
     </main>
   );
 }
